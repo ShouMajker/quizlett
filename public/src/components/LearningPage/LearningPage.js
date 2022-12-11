@@ -12,14 +12,14 @@ import { Pagination, Navigation } from 'swiper'
 
 const LearningPage = () => {
 
-    const {cardName} = useParams()
+    const {cardName, groupName} = useParams()
     const port = '3001'
     const url = `http://localhost:${port}`
-    const tableName = `card_${cardName}`
+    const tableName = `group_${cardName}_${groupName}`
     const [allRecords, setAllRecords] = useState([])
 
     useEffect(() => {
-        Axios.get(`${url}/api/getAllRecords`, {params: {tableName: tableName}})
+        Axios.get(`${url}/api/getAllRecords`, {params: {selectedTable: tableName}})
         .then(res => {
             setAllRecords(res.data)
         })
@@ -31,28 +31,33 @@ const LearningPage = () => {
     return (
         <>
             <div className='main'>
-                <Swiper
-                    pagination={{
-                        type: 'progressbar'
-                    }}
-                    navigation={true}
-                    modules={[
-                        Pagination,
-                        Navigation
-                    ]}
-                    className='cardsSwiper'
-                >
-                    {allRecords.map((values, index) => {
-                        return (
-                            <SwiperSlide>
-                                <RotatingCard
-                                    key={index}
-                                    data={values}
-                                />
-                            </SwiperSlide>
-                        )
-                    })}
-                </Swiper>
+                {allRecords.length === 0 ? (
+                    <h1 className="emptyInfo">Grupa nie posiada żadnych pól!</h1>
+                ) : (
+                    <Swiper
+                        pagination={{
+                            type: 'progressbar'
+                        }}
+                        navigation={true}
+                        modules={[
+                            Pagination,
+                            Navigation
+                        ]}
+                        className='cardsSwiper'
+                    >
+                        {allRecords.map((values, index) => {
+                            return (
+                                <SwiperSlide>
+                                    <RotatingCard
+                                        key={index}
+                                        data={values}
+                                    />
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
+
+                )}
             </div>
         </>
     )

@@ -81,12 +81,14 @@ app.post('/api/addNewRecord', (req, res) => {
 
 
 app.get('/api/getAllRecords', (req, res) => {
-    const tableName = req.query.tableName
+    const tableName = req.query.selectedTable
     const query = `SELECT * FROM ${tableName};`
 
     db.query(query, (err, result) => {
         if(err) {
             return
+        } else {
+            res.send(result)
         }
     })
 })
@@ -127,6 +129,33 @@ app.post('/api/createNewGroup', (req, res) => {
     const query = `CREATE TABLE ${tableName} (id int PRIMARY KEY AUTO_INCREMENT, english text, polish text);`
 
     db.query(query, (err, response) => {
+        if(err) {
+            return
+        }
+    })
+})
+
+app.post('/api/deleteGroup', (req, res) => {
+    const tableName = req.body.deletedTable
+    const query = `DROP TABLE ${tableName};`
+
+    db.query(query, (err, result) => {
+        if(err) {
+            return
+        }
+    })
+})
+
+app.post('/api/updateGroupName', (req, res) => {
+
+    const cardName = req.body.data.cardName
+    const tableName = req.body.data.tableName
+    const newName = req.body.data.newName
+    const newTable = `group_${cardName}_${newName}`
+
+    const query = `RENAME TABLE ${tableName} TO ${newTable};`
+
+    db.query(query, (err, result) => {
         if(err) {
             return
         }

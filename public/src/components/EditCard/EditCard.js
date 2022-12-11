@@ -7,20 +7,19 @@ import '../HomePage/HomePage.css'
 import './EditCard.css'
 
 const EditCard = () => {
+    const [allRecords, setAllRecords] = useState([])
     const [englishPhrase, setEnglishPhrase] = useState('')
     const [polishPhrase, setPolishPhrase] = useState('')
-
-    const [allRecords, setAllRecords] = useState([])
     const [editCardData, setEditCardData] = useState({
         english: '',
         polish: ''
     })
     const [editCardId, setEditCardId] = useState(null)
 
-    const {cardName} = useParams()
+    const {cardName, groupName} = useParams()
     const port = '3001'
     const url = `http://localhost:${port}`
-    const tableName = `card_${cardName}`
+    const tableName = `group_${cardName}_${groupName}`
 
     const formSubmit = (e) => {
         e.preventDefault()
@@ -37,10 +36,9 @@ const EditCard = () => {
         setEnglishPhrase('')
         setPolishPhrase('')
     }
-
     // Getting all data from table
     useEffect(() => {
-        Axios.get(`${url}/api/getAllRecords`, {params: {tableName: tableName}})
+        Axios.get(`${url}/api/getAllRecords`, {params: {selectedTable: tableName}})
         .then(res => {
             setAllRecords(res.data)
         })
@@ -105,8 +103,8 @@ const EditCard = () => {
 
     return (
         <main>
-            <h1 className='cardEditInfo'>Edycja fiszki {cardName}</h1>
-            <div class='container'>
+            <h1 className='cardEditInfo'>Edycja grupy {groupName}</h1>
+            <div className='container'>
                 <form onSubmit={formSubmit} className='formContainer'>
                     <div className='inputContainer'>
                         <label htmlFor='englishText' className='formLabel'>Angielski:</label>
@@ -117,8 +115,9 @@ const EditCard = () => {
                             name='englishText'
                             value={englishPhrase}
                             onChange={(e) => setEnglishPhrase(e.target.value)}
-                            autocomplete="off"
-                            required />
+                            autoComplete="off"
+                            required
+                        />
                     </div>
                     <div className='inputContainer'>
                         <label htmlFor='polishText' className='formLabel'>Polski:</label>
@@ -129,8 +128,9 @@ const EditCard = () => {
                             name='polishText'
                             value={polishPhrase}
                             onChange={(e) => setPolishPhrase(e.target.value)}
-                            autocomplete="off"
-                            required />
+                            autoComplete="off"
+                            required
+                        />
                     </div>
                     <button className='addBtn'>Dodaj</button>
                 </form>
@@ -150,17 +150,19 @@ const EditCard = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {allRecords.map((card) => {
+                                    {allRecords.map((card, index) => {
                                         return (
-                                            <Fragment>
+                                            <Fragment key={index}>
                                                 {editCardId === card.id ? (
                                                     <EditableRow
+                                                        key={index}
                                                         card={card}
                                                         editCardData={editCardData}
                                                         handleEditCardData={handleEditCardData}
                                                         handleCancelClick={handleCancelClick} />
                                                 ) : (
                                                     <ReadOnlyRow
+                                                        key={index}
                                                         card={card}
                                                         handleEditClick={handleEditClick}
                                                         handleDeleteClick={handleDeleteClick}/>

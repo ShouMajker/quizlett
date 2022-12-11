@@ -17,8 +17,8 @@ function App() {
         <Route path='/' element={ <HomePage /> }/>
         <Route path='/createCard' element={ <CreateCard /> } />
         <Route exact path='/editCardGroups/:cardName' element={<CardGroups />} />
-        {/* <Route exact path='/editCardGroups/:cardName' element={<EditCard />} /> */}
-        <Route exact path='/learn/:cardName' element={<LearningPage />}/>
+        <Route exact path='/editCardGroups/:cardName/:groupName' element={<EditCard />} />
+        <Route exact path='/editCardGroups/:cardName/:groupName/learn' element={<LearningPage />}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </>
