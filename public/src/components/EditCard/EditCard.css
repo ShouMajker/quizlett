@@ -1,0 +1,60 @@
+@import '../RootStyles/RootStyles.css';
+
+main {
+    background-color: var(--tableTheme);
+    border-radius: 1em;
+    backdrop-filter: blur(100px);
+    padding: 3em 0;
+    margin: 5em;
+}
+.cardEditInfo {
+    text-align: center;
+    color: var(--rowOddBg);
+}
+.container {
+    margin: 5em 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--tableTheme);
+    border-radius: 1em;
+    backdrop-filter: blur(100px);
+    padding: 2em;
+    height: fit-content;
+}
+.formLabel {
+    display: block;
+    color: var(--rowEvenBg);
+    font-weight: 600;
+}
+.formInput {
+    border: none;
+    padding: .5em;
+    font-size: 1em;
+    margin: .25em 0;
+    border-radius: .5em;
+}
+.formInput:focus {
+    outline: none;
+}
+
+.addBtn {
+    margin-top: 1em;
+    padding: .5em 1em;
+    background-color: var(--rowEvenBg);
+    border: none;
+    font-weight: 500;
+    font-size: 1em;
+    color: var(--thBg);
+    border-radius: .5em;
+    transition: background .2s ease-in-out;
+}
+.addBtn:hover {
+    background-color: var(--rowOddBg);
+}

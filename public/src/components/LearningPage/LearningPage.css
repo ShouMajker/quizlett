@@ -1,0 +1,69 @@
+@import '../RootStyles/RootStyles.css';
+
+.main {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    max-width: 35em;
+    margin: 0 auto;
+}
+
+.cardsSwiper {
+    position: relative;
+    margin: 0 auto;
+    background-color: var(--tableTheme);
+    border-radius: 1em;
+}
+
+.swiper-pagination {
+    margin-top: 1em !important;
+}
+.swiper-pagination-progressbar-fill {
+    background: var(--rowEvenBg) !important;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    color: var(--rowEvenBg) !important;
+}
+
+.scene {
+    height: 10em;
+    width: 20em;
+    perspective: 200em;
+    margin: 5em auto;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    transition: transform .5s ease-in-out;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+}
+
+.card.cardFlipped {
+    transform: rotateX(180deg);
+    animation: animate .5s ease-in-out;
+}
+
+.cardSide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    position: absolute;
+    text-align: center;
+    border-radius: 1em;
+    font-weight: 600;
+    width: 100%;
+    height: 100%;
+    color: var(--rowEvenBg);
+    background-color: var(--tableTheme);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.cardSide.polish {
+    transform: rotateX(180deg);
+}
