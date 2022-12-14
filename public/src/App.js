@@ -8,6 +8,7 @@ import EditCard from './components/EditCard/EditCard';
 import NotFound from './components/NotFound/NotFound';
 import LearningPage from './components/LearningPage/LearningPage';
 import CardGroups from './components/CardGroups/CardGroups';
+import TestOnlyGroup from './components/TestOnlyGroup/TestOnlyGroup';
 
 function App() {
   return (
@@ -16,9 +17,12 @@ function App() {
       <Routes>
         <Route path='/' element={ <HomePage /> }/>
         <Route path='/createCard' element={ <CreateCard /> } />
-        <Route exact path='/editCardGroups/:cardName' element={<CardGroups />} />
-        <Route exact path='/editCardGroups/:cardName/:groupName' element={<EditCard />} />
-        <Route exact path='/editCardGroups/:cardName/:groupName/learn' element={<LearningPage />}/>
+        <Route path='/cardGroups'>
+          <Route path=':cardName' element={<CardGroups />} />
+          <Route path=':cardName/:groupName/edit' element={<EditCard />} />
+          <Route path=':cardName/:groupName/learn' element={<LearningPage /> }/>
+          <Route path=':cardName/:groupName/test' element={<TestOnlyGroup /> }/>
+        </Route>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </>

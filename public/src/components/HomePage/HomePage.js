@@ -52,7 +52,7 @@ const HomePage = () => {
                                 return (
                                     <tr>
                                         <td key={index}>{value.tables.toString().slice(5)}</td>
-                                        <td><Link to={`editCardGroups/${value.tables.toString().slice(5)}`} className="tdBtn">Edytuj</Link></td>
+                                        <td><Link to={`/cardGroups/${value.tables.toString().slice(5)}`} className="tdBtn">Edytuj</Link></td>
                                         <td><a href='#' className="tdBtn">Test</a></td>
                                         <td><Link reloadDocument to='/' className="tdDelete" onClick={() => deleteCard(value.tables.toString().slice(5))}>Usuń</Link></td>
                                     </tr>
