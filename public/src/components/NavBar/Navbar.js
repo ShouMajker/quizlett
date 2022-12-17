@@ -5,7 +5,7 @@ import './NavBar.css'
 const Navbar = () => {
     return (
         <nav>
-            <NavLink to='/' reloadDocument>Strona startowa</NavLink>
+            <NavLink className='text-3xl font-bold underline' to='/' reloadDocument>Strona startowa</NavLink>
             <NavLink to='/createCard'>Stwórz fiszkę</NavLink>
         </nav>
     )
