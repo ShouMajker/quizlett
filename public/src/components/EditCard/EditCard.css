@@ -1,12 +1,12 @@
 @import '../RootStyles/RootStyles.css';
 
-main {
+/* main {
     background-color: var(--tableTheme);
     border-radius: 1em;
     backdrop-filter: blur(100px);
     padding: 3em 0;
     margin: 5em;
-}
+} */
 .cardEditInfo {
     text-align: center;
     color: var(--rowOddBg);
