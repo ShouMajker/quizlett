@@ -10,4 +10,11 @@
     --rowOddBg: #dee2e6;
     --tdDeleteBg: #a4161a;
     --tableTheme: rgb(0, 29, 61, .15);
+    --primaryFontColor: #212529;
+    --incorrectFontColor: #d90429;
+    --markedBgColor: hsl(349, 78%, 62%);
+    --markedBgColorDarker: hsl(349, 78%, 57%);
+    --containerBgColorWithOpacity: hsla(210, 15%, 100%, 0.8);
+    --containerBgColor: hsl(210, 17%, 95%);
+    --seperatedLineBgColor: #ced4da;
 }

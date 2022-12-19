@@ -1,13 +1,3 @@
-:root {
-    --primaryFontColor: #212529;
-    --incorrectFontColor: #d90429;
-    --markedBgColor: #ea526f;
-    --containerBgColorWithOpacity: hsla(210, 15%, 100%, 0.8);
-    --containerBgColor: hsl(210, 17%, 95%);
-    --seperatedLineBgColor: #ced4da;
-    --buttonBgColor: hsl(130, 76%, 68%);
-    --buttonBgColorHover: hsl(130, 76%, 64%);
-}
 * {
     margin: 0;
     padding: 0;

@@ -43,17 +43,20 @@ app.post('/api/createCard', (req, res) => {
 
 // Getting all card tables
 app.get('/api/getAllCards', (req, res) => {
+    const prefix = req.query.prefix;
     const query =
-        `SELECT ROW_NUMBER() OVER(PARTITION BY version) as id, TABLE_NAME as tables FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA LIKE 'card_%'`
-    db.query(query, (err, result) => {
-        res.send(result);
+        `SELECT ROW_NUMBER() OVER(PARTITION BY version) as id, TABLE_NAME as tables FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE CONCAT(?, '%')`
+    db.query(query, [prefix], (err, result) => {
+        if(err) {
+            return
+        } else {
+            res.send(result);
+        }
     })
 })
 
 // Delete selected card
 app.post('/api/deleteCard', (req, res) => {
-
-    const param = new url.URLSearchParams()
     const tableName = req.body.cardName
     const query = `DROP TABLE card_${tableName};`
     
@@ -69,10 +72,11 @@ app.post('/api/addNewRecord', (req, res) => {
     const tableName = req.body.tableName
     const english = req.body.english
     const polish = req.body.polish
+    const favourite = req.body.favourite
 
-    const query = `INSERT INTO ${tableName} (english, polish) VALUES(?, ?);`
+    const query = `INSERT INTO ${tableName} (english, polish, favourite) VALUES(?, ?, ?);`
     
-    db.query(query, [english, polish], (err, result) => {
+    db.query(query, [english, polish, favourite], (err, result) => {
         if(err) {
             return
         }
@@ -126,7 +130,7 @@ app.post('/api/deleteRecord', (req, res) => {
 app.post('/api/createNewGroup', (req, res) => {
     const tableName = req.body.tableName
 
-    const query = `CREATE TABLE ${tableName} (id int PRIMARY KEY AUTO_INCREMENT, english text, polish text);`
+    const query = `CREATE TABLE ${tableName} (id int PRIMARY KEY AUTO_INCREMENT, english text, polish text, favourite tinyint);`
 
     db.query(query, (err, response) => {
         if(err) {
@@ -147,7 +151,6 @@ app.post('/api/deleteGroup', (req, res) => {
 })
 
 app.post('/api/updateGroupName', (req, res) => {
-
     const cardName = req.body.data.cardName
     const tableName = req.body.data.tableName
     const newName = req.body.data.newName
@@ -156,6 +159,20 @@ app.post('/api/updateGroupName', (req, res) => {
     const query = `RENAME TABLE ${tableName} TO ${newTable};`
 
     db.query(query, (err, result) => {
+        if(err) {
+            return
+        }
+    })
+})
+
+app.post('/api/changeFavourite', (req, res) => {
+    const tableName = req.body.changeData.tableName
+    const id = req.body.changeData.id
+    const value = req.body.changeData.value
+
+    const query = `UPDATE ${tableName} SET favourite = ? WHERE id = ?`
+
+    db.query(query, [value, id], (err, result) => {
         if(err) {
             return
         }

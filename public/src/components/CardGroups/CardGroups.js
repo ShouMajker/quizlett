@@ -4,22 +4,20 @@ import Axios from 'axios'
 import FormOnlyName from "../Modules/FormOnlyName"
 import GroupReadOnlyRow from "./GroupReadOnlyRow"
 import GroupEditableRow from "./GroupEditableRow"
+import axiosData from "../Modules/Connection"
 
 const CardGroups = () => {
 
     const {cardName} = useParams()
-    const port = '3001'
-    const url = `http://localhost:${port}`
 
     const [groupName, setGroupName] = useState('')
     const [tablesFromDb, setTablesFromDb] = useState([])
     const [currentTables, setCurrentTables] = useState([])
-
     const [cardGroupId, setCardGroupId] = useState(null)
     const [editedGroupName, setEditedGroupName] = useState('')
 
     useEffect(() => {
-        Axios.get(`${url}/api/getAllCards`, {params: {tableName: cardName}})
+        Axios.get(`${axiosData.url}/api/getAllCards`, {params: {prefix: `group_${cardName}`}})
         .then(res => {
             setTablesFromDb(res.data)
             setCurrentTables(
@@ -43,7 +41,7 @@ const CardGroups = () => {
             alert('Taka nazwa grupy już istnieje w bazie!')
             return
         }
-        Axios.post(`${url}/api/CreateNewGroup`, {tableName: groupNameToSend})
+        Axios.post(`${axiosData.url}/api/CreateNewGroup`, {tableName: groupNameToSend})
         setCurrentTables(prevTables => (
             [...prevTables, groupNameToSend]
         ))
@@ -70,7 +68,7 @@ const CardGroups = () => {
             newName: editedGroupName
         }
 
-        Axios.post(`${url}/api/updateGroupName`, {data: edited })
+        Axios.post(`${axiosData.url}/api/updateGroupName`, {data: edited })
         setCardGroupId(null)
         window.location.reload()
     }
@@ -80,7 +78,7 @@ const CardGroups = () => {
     }
 
     const handleDeleteClick = (groupName) => {
-        Axios.post(`${url}/api/deleteGroup`, {deletedTable: groupName})
+        Axios.post(`${axiosData.url}/api/deleteGroup`, {deletedTable: groupName})
         window.location.reload()
     }
     

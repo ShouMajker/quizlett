@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import './HomePage.css'
+import axiosData from "../Modules/Connection"
 
 
 const HomePage = () => {
@@ -11,14 +12,15 @@ const HomePage = () => {
     const [cardsList, setCardsList] = useState([]);
 
     useEffect(() => {
-        Axios.get(`http://localhost:${port}/api/getAllCards`)
+        Axios.get(`${axiosData.url}/api/getAllCards`, {params: {prefix: 'card'}})
         .then(res => {
             setCardsList(res.data)
         })
     }, [])
 
     const deleteCard = (cardName) => {
-        Axios.post(`http://localhost:${port}/api/deleteCard`, {cardName: cardName})
+        console.log(cardName)
+        Axios.post(`${axiosData.url}/api/deleteCard`, {cardName: cardName})
         .then(() => alert(`Fiszka ${cardName} została pomyślnie usunięta`))
         .catch(err => console.log(err))
     }
@@ -32,15 +34,9 @@ const HomePage = () => {
                 {/* In the future add a feature that will allow user to search for his specified card name:
                 useSearchParams, exact as the useState, search input  */}
 
-                {cardsList.length === 0 ? (
-                        // Show info, there is no tables
-                        <div className="tableEmptyInfo">
-                            <h1 className="emptyInfo">Nie masz jeszcze żadnych fiszek :-C</h1>
-                            <Link className='btnCreateCard' to='/createCard'>Stwórz fiszkę</Link>
-                        </div>
-                        ) : (
-                        // Show table containing all cards
-                        <table className="cardsTable">
+                {cardsList.length !== 0 ? (
+                    // Show table containing all cards
+                    <table className="cardsTable">
                         <thead>
                             <tr>
                                 <th>Nazwa</th>
@@ -50,8 +46,8 @@ const HomePage = () => {
                         <tbody>
                             {cardsList.map((value, index) => {
                                 return (
-                                    <tr>
-                                        <td key={index}>{value.tables.toString().slice(5)}</td>
+                                    <tr key={index}>
+                                        <td>{value.tables.toString().slice(5)}</td>
                                         <td><Link to={`cardGroups/${value.tables.toString().slice(5)}`} className="tdBtn">Edytuj</Link></td>
                                         <td><a href='#' className="tdBtn">Test</a></td>
                                         <td><Link reloadDocument to='/' className="tdDelete" onClick={() => deleteCard(value.tables.toString().slice(5))}>Usuń</Link></td>
@@ -60,6 +56,12 @@ const HomePage = () => {
                                 })}
                         </tbody>
                     </table>
+                ) : (
+                    // Show info, there is no tables
+                    <div className="tableEmptyInfo">
+                        <h1 className="emptyInfo">Nie masz jeszcze żadnych fiszek :-C</h1>
+                        <Link className='btnCreateCard' to='/createCard'>Stwórz fiszkę</Link>
+                    </div>
                 )}
             </div>
         </>

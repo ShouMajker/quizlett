@@ -4,9 +4,17 @@ import './NavBar.css'
 
 const Navbar = () => {
     return (
-        <nav>
-            <NavLink className='text-3xl font-bold underline' to='/' reloadDocument>Strona startowa</NavLink>
-            <NavLink to='/createCard'>Stwórz fiszkę</NavLink>
+        <nav className='navbar'>
+            <NavLink className='logo' to='/'>Quizzlet</NavLink>
+            <ul className='navbar-list'>
+                <li className='navbar-item'>
+                    <NavLink className='navbar-link' to='/'>Strona główna</NavLink>
+                </li>
+                <li className='navbar-item'>
+                    <NavLink className='navbar-link' to='/createCard'>Stwórz fiszkę</NavLink>
+                </li>
+            </ul>
+
         </nav>
     )
 }

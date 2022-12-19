@@ -5,20 +5,20 @@ import EditableRow from './EditableRow'
 import ReadOnlyRow from './ReadOnlyRow'
 import '../HomePage/HomePage.css'
 import './EditCard.css'
+import axiosData  from './../Modules/Connection'
 
 const EditCard = () => {
     const [allRecords, setAllRecords] = useState([])
     const [englishPhrase, setEnglishPhrase] = useState('')
     const [polishPhrase, setPolishPhrase] = useState('')
+    const [favouriteInForm, setFavouriteInForm] = useState(0)
     const [editCardData, setEditCardData] = useState({
         english: '',
-        polish: ''
+        polish: '',
     })
     const [editCardId, setEditCardId] = useState(null)
 
     const {cardName, groupName} = useParams()
-    const port = '3001'
-    const url = `http://localhost:${port}`
     const tableName = `group_${cardName}_${groupName}`
 
     const formSubmit = (e) => {
@@ -27,26 +27,28 @@ const EditCard = () => {
             alert('Uzupełnij wszystkie pola!')
             return
         }
-        Axios.post(`${url}/api/addNewRecord`,
+        Axios.post(`${axiosData.url}/api/addNewRecord`,
         {
             tableName: tableName,
             english: englishPhrase,
-            polish: polishPhrase
+            polish: polishPhrase,
+            favourite: favouriteInForm
         })
         setEnglishPhrase('')
         setPolishPhrase('')
+        setFavouriteInForm(0)
     }
+
     // Getting all data from table
     useEffect(() => {
-        Axios.get(`${url}/api/getAllRecords`, {params: {selectedTable: tableName}})
+        Axios.get(`${axiosData.url}/api/getAllRecords`, {params: {selectedTable: tableName}})
         .then(res => {
             setAllRecords(res.data)
         })
         .catch(error => {
             console.log(error)
         })
-    }, [allRecords, url, tableName])
-
+    }, [allRecords])
 
     // Set default values when user wants to edit a row
     const handleEditClick = (event, card) => {
@@ -55,7 +57,7 @@ const EditCard = () => {
 
         const cardValues = {
             english: card.english,
-            polish: card.polish
+            polish: card.polish,
         }
 
         setEditCardData(cardValues)
@@ -82,7 +84,7 @@ const EditCard = () => {
             polish: editCardData.polish
         }
 
-        Axios.post(`${url}/api/updateRecord`, {newValues: editedCard})
+        Axios.post(`${axiosData.url}/api/updateRecord`, {newValues: editedCard})
         setEditCardId(null)
         window.location.reload()
     }
@@ -96,7 +98,19 @@ const EditCard = () => {
             tableName: tableName,
             id: cardId
         }
-        Axios.post(`${url}/api/deleteRecord`, {deleteData: deletedCard})
+        Axios.post(`${axiosData.url}/api/deleteRecord`, {deleteData: deletedCard})
+        window.location.reload()
+
+    }
+
+    const handleChangeFavourite = (event, cardId, favourite) => {
+        event.preventDefault()
+        const data = {
+            tableName: tableName,
+            id: cardId,
+            value: favourite === 0 ? 1 : 0
+        }
+        Axios.post(`${axiosData.url}/api/changeFavourite`, {changeData: data})
         window.location.reload()
 
     }
@@ -132,6 +146,16 @@ const EditCard = () => {
                             required
                         />
                     </div>
+                    <div className='inputContainer'>
+                        <label htmlFor='favourite' className='formLabel'>Ulubiony:</label>
+                        <input
+                            type='checkbox'
+                            id='favourite'
+                            name='favorite'
+                            value={favouriteInForm}
+                            onChange={(e) => setFavouriteInForm(e.target.checked)}
+                        />
+                    </div>
                     <button className='addBtn'>Dodaj</button>
                 </form>
                 <div className='tableContainer'>
@@ -146,6 +170,7 @@ const EditCard = () => {
                                     <tr>
                                         <th>Tekst angielski</th>
                                         <th>Tekst polski</th>
+                                        <th></th>
                                         <th>Czynności</th>
                                     </tr>
                                 </thead>
@@ -159,13 +184,16 @@ const EditCard = () => {
                                                         card={card}
                                                         editCardData={editCardData}
                                                         handleEditCardData={handleEditCardData}
-                                                        handleCancelClick={handleCancelClick} />
+                                                        handleCancelClick={handleCancelClick}
+                                                    />
                                                 ) : (
                                                     <ReadOnlyRow
                                                         key={index}
                                                         card={card}
                                                         handleEditClick={handleEditClick}
-                                                        handleDeleteClick={handleDeleteClick}/>
+                                                        handleDeleteClick={handleDeleteClick}
+                                                        handleChangeFavourite={handleChangeFavourite}
+                                                    />
                                                 )}
                                             </Fragment>
                                         )

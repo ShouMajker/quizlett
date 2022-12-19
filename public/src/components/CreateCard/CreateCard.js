@@ -1,7 +1,8 @@
-
 import React, { Component } from "react"
 import Axios from "axios"
 import { Navigate } from "react-router-dom"
+import './CreateCard.css'
+import axiosData from "../Modules/Connection"
 
 export default class CreateCard extends Component {
     constructor(props) {
@@ -10,38 +11,42 @@ export default class CreateCard extends Component {
             card: "",
             cardCreated: false
         }
-
-        this.port = '3001'
         this.CreatingCard = this.CreatingCard.bind()
     }
 
     CreatingCard = (event) => {
         event.preventDefault()
-
-        if(this.card !== "") {
-            Axios.post(`http://localhost:${this.port}/api/createCard`, {tableName: this.state.card})
-            this.setState({cardCreated: true})
-        } else {
-            alert("Nieprawidłowa nazwa tabeli")
-        }
+        Axios.post(`${axiosData.url}/api/createCard`, {tableName: this.state.card})
+        this.setState({cardCreated: true})
     }
 
     render () {
         return (
-            <>
-                {this.state.cardCreated && (
-                    <Navigate to={`/editCard/${this.state.card}`}/>
-                )}
-                <h1>Tworzenie fiszki</h1>
-                <label htmlFor="cardName">Nazwa fiszki</label>
-                <input
-                    id="cardName"
-                    name="cardName"
-                    placeholder="Wpisz nazwę fiszki"
-                    onChange={(e) => this.setState({card: e.target.value})}
-                    value={this.state.card}/>
-                <button onClick={this.CreatingCard}>Stwórz fiszkę</button>
-            </>
+            <main className='main-container'>
+                <div className='container-opacity'>
+                    {this.state.cardCreated && (
+                        <Navigate to={`/cardGroups/${this.state.card}`}/>
+                    )}
+                    <div className='group-container'>
+                        <p className='container-title'>Tworzenie fiszki</p>
+                    </div>
+                    <div className='group-container'>
+                        <label className='input-label' htmlFor="cardName">Nazwa fiszki</label>
+                        <input
+                            className='form-input'
+                            id="cardName"
+                            name="cardName"
+                            placeholder="Wpisz nazwę fiszki"
+                            onChange={(e) => this.setState({card: e.target.value})}
+                            value={this.state.card}
+                            autoComplete='off'
+                            required
+                        />
+                        <span className='input-border-bottom'/>
+                        <button className='button' onClick={this.CreatingCard}>Stwórz fiszkę</button>
+                    </div>
+                </div>
+            </main>
         )
     }
 }
