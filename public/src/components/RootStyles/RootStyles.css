@@ -4,13 +4,11 @@
     --bg3: #00b4d8;
     --bgSecond: #0466c8;
     --thBg: #212529;
-    --thColor: #f6fff8;
-    --tableCornerRadius: 1em;
-    --rowEvenBg: #f8f9fa;
-    --rowOddBg: #dee2e6;
-    --tdDeleteBg: #a4161a;
+    --rowEvenBg: hsl(210, 17%, 98%);
+    --rowOddBg: hsl(210, 17%, 93%);
+    --linkDeleteColor: #a4161a;
     --tableTheme: rgb(0, 29, 61, .15);
-    --primaryFontColor: #212529;
+    --linkHoverColor: #212529;
     --incorrectFontColor: #d90429;
     --markedBgColor: hsl(349, 78%, 62%);
     --markedBgColorDarker: hsl(349, 78%, 57%);
