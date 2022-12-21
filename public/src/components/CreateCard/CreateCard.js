@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Axios from "axios"
 import { Navigate } from "react-router-dom"
 import axiosData from "../Modules/Connection"
@@ -8,7 +8,6 @@ import FormOnlyName from "../Modules/FormOnlyName/FormOnlyName"
 
 const CreateCard = () => {
     const [cardName, setCardName] = useState('')
-    const [tablesFromDb, setTablesFromDb] = useState([])
     const [currentTables, setCurrentTables] = useState([])
     const [isWrongName, setIsWrongName] = useState(false)
     const [isAlreadyExist, setIsAlredyExist] = useState(false)
@@ -17,7 +16,6 @@ const CreateCard = () => {
     useEffect(() => {
         Axios.get(`${axiosData.url}/api/getAllCards`, {params: {prefix: `card_${cardName}`}})
         .then(res => {
-            setTablesFromDb(res.data)
             setCurrentTables(
                 res.data.filter(item => item.tables.includes(`card_${cardName}`))
             )
@@ -39,7 +37,7 @@ const CreateCard = () => {
             return
         }
 
-        if(tablesFromDb.filter(data => data.tables === nameToSend).length > 0) {
+        if(currentTables.filter(data => data.tables === nameToSend).length > 0) {
             setIsAlredyExist(true)
             setTimeout(() => {
                 setIsWrongName(false)

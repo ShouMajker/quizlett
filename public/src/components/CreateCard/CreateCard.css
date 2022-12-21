@@ -1,0 +1,41 @@
+.container-opacity {
+    background-color: var(--containerBgColorWithOpacity);
+    padding: 1rem;
+    width: fit-content;
+    border-radius: 1rem;
+    margin: .5rem 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.group-container {
+    background-color: var(--containerBgColor);
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    margin: .5rem 0;
+    gap: 1rem;
+    min-width: 25vw;
+    position: relative;
+    align-items: center;
+    max-width: fit-content;
+}
+
+.button {
+    background-color: var(--markedBgColor);
+    border: none;
+    padding: 1rem 4rem;
+    font-size: 1.25rem;
+    border-radius: .5rem;
+    font-weight: 500;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--thBg)
+}
+
+.button:hover {
+    background-color: var(--markedBgColorDarker);
+}

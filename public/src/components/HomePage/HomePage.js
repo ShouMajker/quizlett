@@ -70,10 +70,10 @@ const HomePage = () => {
                                                 </Link>
                                             </td>
                                             <td>
-                                                <a href="#" className="table-td-action">
+                                                <Link to='/' className="table-td-action">
                                                     <img className='table-img' src={Approval} alt='approval' />
                                                     <span>Test</span>
-                                                </a>
+                                                </Link>
                                             </td>
                                             <td>
                                                 <Link to='/' className='table-td-action' onClick={() => setIsDeletingCard({deleting: true, cardName: value.tables.toString().slice(5)})}>

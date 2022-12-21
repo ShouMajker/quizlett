@@ -1,0 +1,107 @@
+.main-container {
+    display: grid;
+    justify-items: center;
+    margin: .5rem 0;
+}
+.test-container, .results-container {
+    border-radius: 1rem;
+    padding: .5rem;
+    display: flex;
+    gap: .5rem;
+    margin: .5rem 0;
+    flex-direction: column;
+    min-width: 50%;
+    position: relative;
+}
+.test-container {
+    background-color: var(--containerBgColorWithOpacity);
+    align-items: center;
+}
+
+.results-container {
+    background-color: var(--containerBgColorWithOpacity);
+    display: flex;
+    flex-direction: row;
+}
+
+.incorrects-container, .corrects-container {
+    width: 50%;
+    resize: vertical;
+    overflow-y: auto;
+    position: relative;
+    max-height: 60vh;
+    min-height: 60vh;
+}
+
+.container-title {
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
+    color: var(--primaryFontColor);
+    margin: .5em 0;
+}
+
+.seperated-line {
+    border: 2px solid var(--markedBgColor);
+    margin: -.5em 0;
+}
+
+.group-name {
+    background-color: var(--markedBgColor);
+    border-radius: .5em;
+    padding: .1em .5em;
+}
+
+.form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    width: 40%;
+    background-color: var(--containerBgColor);
+    border-radius: .5em;
+    padding: 2em;
+}
+
+.input-label {
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.input {
+    position: relative;
+    font-size: 20px;
+    border: none;
+    border-bottom: 3px solid var(--seperatedLineBgColor);
+    background: none;
+    width: 15vw;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.input:focus + .input-border-bottom,
+.input:hover + .input-border-bottom {
+    width: 15vw;
+}
+
+.input-border-bottom {
+    position: absolute;
+    display: inline-block;
+    background-color: var(--markedBgColor);
+    bottom: 32px;
+    width: 0;
+    height: 3px;
+    transition: all .2s ease-in-out;
+}
+
+.counter {
+    font-weight: 600;
+    position: absolute;
+    right: .5rem;
+    bottom: .5rem;
+}
