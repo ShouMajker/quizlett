@@ -44,7 +44,7 @@ const HomePage = () => {
                 handleDelete={() => deleteCard(isDeletingCard.cardName)}
             />
             <div className='main-container'>
-                <div className="container-opacity">
+                <div className="container-opacity resize-container">
 
                     {/* In the future, add a feature that will allow user to search for his specified card name:
                     useSearchParams, exact as the useState, search input  */}
@@ -70,7 +70,7 @@ const HomePage = () => {
                                                 </Link>
                                             </td>
                                             <td>
-                                                <Link to='/' className="table-td-action">
+                                                <Link to={`test/${value.tables.toString().slice(5)}`} className="table-td-action">
                                                     <img className='table-img' src={Approval} alt='approval' />
                                                     <span>Test</span>
                                                 </Link>

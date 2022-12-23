@@ -1,30 +1,9 @@
-@import '../RootStyles/RootStyles.css';
-
-body {
-  background: linear-gradient(-45deg, var(--bgSecond), var(--bgFirst));
-  background-size: 200% 200%;
-  animation: gradient 15s ease infinite;
-  height: 100vh;
-}
-
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-
 .table {
   background-color: var(--containerBgColor);
   border-radius: .5rem;
   backdrop-filter: blur(100px);
   border-collapse: collapse;
-  padding: 2em;
+  padding: 2rem;
   max-height: 50vh;
   width: 100%;
   overflow: auto;

@@ -3,6 +3,7 @@ import React, {useState, useEffect, Fragment} from 'react'
 import { useParams } from 'react-router-dom'
 import EditableRow from './EditableRow'
 import ReadOnlyRow from './ReadOnlyRow'
+import EmptyFeedback from '../Modules/EmptyFeedback/EmptyFeedback'
 import '../HomePage/HomePage.css'
 import './EditCard.css'
 import axiosData  from './../Modules/Connection'
@@ -116,96 +117,103 @@ const EditCard = () => {
     }
 
     return (
-        <main>
-            <h1 className='cardEditInfo'>Edycja grupy {groupName}</h1>
-            <div className='container'>
-                <form onSubmit={formSubmit} className='formContainer'>
-                    <div className='inputContainer'>
-                        <label htmlFor='englishText' className='formLabel'>Angielski:</label>
-                        <input
-                            className='formInput'
-                            type='text'
-                            id='englishText'
-                            name='englishText'
-                            value={englishPhrase}
-                            onChange={(e) => setEnglishPhrase(e.target.value)}
-                            autoComplete="off"
-                            required
-                        />
+        <main className='container'>
+            <div>
+                <div className='container-opacity'>
+                    <div className='group-container'>
+                        <p className='container-title'>
+                            Edycja grupy {groupName}
+                        </p>
                     </div>
-                    <div className='inputContainer'>
-                        <label htmlFor='polishText' className='formLabel'>Polski:</label>
-                        <input
-                            className='formInput'
-                            type='text'
-                            id='polishText'
-                            name='polishText'
-                            value={polishPhrase}
-                            onChange={(e) => setPolishPhrase(e.target.value)}
-                            autoComplete="off"
-                            required
-                        />
-                    </div>
-                    <div className='inputContainer'>
-                        <label htmlFor='favourite' className='formLabel'>Ulubiony:</label>
-                        <input
-                            type='checkbox'
-                            id='favourite'
-                            name='favorite'
-                            value={favouriteInForm}
-                            onChange={(e) => setFavouriteInForm(e.target.checked)}
-                        />
-                    </div>
-                    <button className='addBtn'>Dodaj</button>
-                </form>
-                <div className='tableContainer'>
-                    {allRecords.length === 0 ? (
-                        <div className="tableEmptyInfo">
-                        <h1 className="emptyInfo">Fiszka nie posiada pól!</h1>
+                    <form onSubmit={formSubmit} className='group-container'>
+                        <div className='input-container'>
+                            <label className='input-label' htmlFor='englishText'>Fraza angielska</label>
+                            <input
+                                className='form-input'
+                                type='text'
+                                id='englishText'
+                                name='englishText'
+                                value={englishPhrase}
+                                onChange={(e) => setEnglishPhrase(e.target.value)}
+                                autoComplete="off"
+                                required
+                            />
+                            <span className='input-border-bottom'/>
                         </div>
-                    ) : (
-                        <form className='cardsTable' onSubmit={handleEditCardSave}>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Tekst angielski</th>
-                                        <th>Tekst polski</th>
-                                        <th></th>
-                                        <th>Czynności</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {allRecords.map((card, index) => {
-                                        return (
-                                            <Fragment key={index}>
-                                                {editCardId === card.id ? (
-                                                    <EditableRow
-                                                        key={index}
-                                                        card={card}
-                                                        editCardData={editCardData}
-                                                        handleEditCardData={handleEditCardData}
-                                                        handleCancelClick={handleCancelClick}
-                                                    />
-                                                ) : (
-                                                    <ReadOnlyRow
-                                                        key={index}
-                                                        card={card}
-                                                        handleEditClick={handleEditClick}
-                                                        handleDeleteClick={handleDeleteClick}
-                                                        handleChangeFavourite={handleChangeFavourite}
-                                                    />
-                                                )}
-                                            </Fragment>
-                                        )
-                                    })}
-                                <tr>
-                                    <td colSpan={4}>Footer</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </form>
-                    )}
+                        <div className='input-container'>
+                            <label htmlFor='polishText' className='input-label'>Fraza polska</label>
+                            <input
+                                className='form-input'
+                                type='text'
+                                id='polishText'
+                                name='polishText'
+                                value={polishPhrase}
+                                onChange={(e) => setPolishPhrase(e.target.value)}
+                                autoComplete="off"
+                                required
+                            />
+                            <span className='input-border-bottom'/>
+                        </div>
+                        <div className='input-container'>
+                            <input
+                                className='form-checkbox'
+                                type='checkbox'
+                                id='favourite'
+                                name='favorite'
+                                value={favouriteInForm}
+                                onChange={(e) => setFavouriteInForm(e.target.checked)}
+                            />
+                            <label htmlFor='favourite'><span>Ulubiony</span></label>
+                        </div>
+                        <button className='button'>Dodaj</button>
+                    </form>
                 </div>
+            </div>
+            <div>
+                {allRecords.length === 0 ? (
+                    <EmptyFeedback
+                        message='Wygląda na to, że nie masz jeszcze żadnych tłumaczeń'
+                    />
+                ) : (
+                    <form className='container-opacity resize-container'>
+                        <table className='table'>
+                            <thead>
+                                <tr>
+                                    <th>Tekst angielski</th>
+                                    <th>Tekst polski</th>
+                                    <th></th>
+                                    <th>Akcje</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {allRecords.map((card, index) => {
+                                    return (
+                                        <Fragment key={index}>
+                                            {editCardId === card.id ? (
+                                                <EditableRow
+                                                    key={index}
+                                                    card={card}
+                                                    editCardData={editCardData}
+                                                    handleEditCardData={handleEditCardData}
+                                                    handleCancelClick={handleCancelClick}
+                                                    handleEditCardSave={handleEditCardSave}
+                                                />
+                                            ) : (
+                                                <ReadOnlyRow
+                                                    key={index}
+                                                    card={card}
+                                                    handleEditClick={handleEditClick}
+                                                    handleDeleteClick={handleDeleteClick}
+                                                    handleChangeFavourite={handleChangeFavourite}
+                                                />
+                                            )}
+                                        </Fragment>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </form>
+                )}
             </div>
         </main>
     )

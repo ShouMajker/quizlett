@@ -29,8 +29,8 @@
 }
 .form-feedback-close {
     position: absolute;
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
     top: 1rem;
     right: 1rem;
     cursor: pointer;

@@ -24,10 +24,10 @@ const CardGroups = () => {
     })
 
     useEffect(() => {
-        Axios.get(`${axiosData.url}/api/getAllCards`, {params: {prefix: `group_${cardName}`}})
+        Axios.get(`${axiosData.url}/api/getAllCards`, {params: {prefix: `group_${cardName}_`}})
         .then(res => {
             setCurrentTables(
-                res.data.filter(item => item.tables.includes(`group_${cardName}`))
+                res.data.filter(item => item.tables.includes(`group_${cardName}_`))
             )
         })
         .catch(error => {
@@ -50,7 +50,7 @@ const CardGroups = () => {
         if(currentTables.filter(data => data.tables === groupNameToSend).length > 0) {
             setIsAlredyExist(true)
             setTimeout(() => {
-                setIsWrongName(false)
+                setIsAlredyExist(false)
             }, 2000)
             return
         }
@@ -146,7 +146,7 @@ const CardGroups = () => {
                         </div>
                     ) : (
                         <div>
-                            <form className='container-opacity'>
+                            <form className='container-opacity resize-container'>
                                 <table className='table'>
                                     <thead>
                                         <tr>

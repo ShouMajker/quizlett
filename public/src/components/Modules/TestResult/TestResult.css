@@ -1,9 +1,8 @@
 .test-result {
-    position: absolute;
-    left: 2.5rem;
-    top: 2.5rem;
-    width: calc(100vw - 11rem);
-    height: calc(100vh - 11rem);
+    width: 80%;
+    height: 80%;
+    top: -80%;
+    left: 50%;
     background-color: var(--containerBgColor);
     border-radius: 1rem;
     z-index: 20;
@@ -12,13 +11,13 @@
     flex-direction: column;
     justify-content: center;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
+    transition: all 1s ease-in-out ;
+    visibility: hidden;
 }
 .result {
     background-color: var(--markedBgColor);
-    padding: .25rem;
+    padding: 0 .5rem .25rem;
     border-radius: .5rem;
 }
 .test-ended-img {
@@ -63,4 +62,8 @@
     width: 25px;
     height: 25px;
     cursor: pointer;
+}
+.test-ended {
+    transform: translate(-50%, 115%);
+    visibility: visible;
 }

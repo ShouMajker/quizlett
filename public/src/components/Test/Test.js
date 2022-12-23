@@ -6,50 +6,64 @@ import TestInput from '../Modules/Test/TestInput'
 import TestFeedback from '../Modules/Test/TestFeedback'
 import TestResult from '../Modules/TestResult/TestResult'
 import EmptyFeedback from '../Modules/EmptyFeedback/EmptyFeedback'
-import './TestOnlyGroup.css'
 
-const TestOnlyGroup = () => {
-
-    const { cardName, groupName } = useParams()
+const Test = () => {
+    const { cardName } = useParams()
     const [allRecords, setAllRecords] = useState([])
     const [id, setId] = useState(0)
     const [choice, setChoice] = useState()
     const [word, setWord] = useState('')
     const [incorrent, setIncorrect] = useState([])
     const [correct, setCorrect] = useState([])
-    const [showResult, setShowResult] = useState(false)
     const [isEnded, setIsEnded] = useState(false)
+    const [showResult, setShowResult] = useState(false)
     
-    const tableName = `group_${cardName}_${groupName}`
-
-    //Get all words with its translates
+    const tableName = `group_${cardName}`
+    
     useEffect(() => {
-        Axios.get(`${axiosData.url}/api/getAllRecords`, {params: {selectedTable: tableName}})
+        Axios.get(`${axiosData.url}/api/getAllCards`, {params: {prefix: tableName}})
         .then(res => {
+            let query = ''
+            res.data.forEach((item, index) => {
 
-            //Shuffling our records array
-            setAllRecords(Array.from(res.data).sort(
-                    (a, b) => 0.5 - Math.random()
-                )
-            )
+                if(index === 0) {
+                    query = `SELECT * FROM ${item.tables}`
+                }
+                else {
+                    query += ` UNION SELECT * FROM ${item.tables}`
+                }
 
-            //Adding one additional property, which will be containing the index of its position in array
-            setAllRecords(prev => prev.map((record, index) => {
-                return ({
-                    drawIndex: index,
-                    id: record.id,
-                    english: record.english,
-                    polish: record.polish,
-                    favourite: record.favourite
+                Axios.get(`${axiosData.url}/api/getRecordsToTest`, {params: {data: query}})
+                .then(res => {
+                    //Shuffling our records array
+                    setAllRecords(Array.from(res.data).sort(
+                            (a, b) => 0.5 - Math.random()
+                        )
+                    )
+        
+                    //Adding one additional property, which will be containing the index of its position in array
+                    setAllRecords(prev => prev.map((record, index) => {
+                        return ({
+                            drawIndex: index,
+                            id: record.id,
+                            english: record.english,
+                            polish: record.polish,
+                            favourite: record.favourite
+                        })
+                    }))
+                    randChoice()
                 })
-            }))
-            randChoice()
+                .catch(err => {
+                    console.log(err)
+                })
+            })
         })
         .catch(err => {
             console.log(err)
         })
     }, [])
-
+    
+    //Get all words with its translates
     const dataValues = Object.values(allRecords.find(item => item.drawIndex === id) || {})
     
     //Either tranlate from polish or english
@@ -126,13 +140,13 @@ const TestOnlyGroup = () => {
             {allRecords.length < 5 ? (
                 <div className='main'>
                     <EmptyFeedback
-                        message='Aby rozpocząć test musisz mieć conajmniej 5 tłumaczeń'
+                        message='Aby rozpocząć test musisz mieć conajmiej jedną grupę z pięcioma tłumaczeniami'
                     />
                 </div>
             ) : (
                 <>
                     <div className='test-container'>
-                        <p className='container-title'>Test z grupy: <span className='group-name'>{groupName}</span></p>
+                        <p className='container-title'>Test z fiszki: <span className='group-name'>{cardName}</span></p>
                         {!isEnded &&
                             <form className='form' onSubmit={handleOnKeyDown}>
                                 <TestInput
@@ -146,7 +160,7 @@ const TestOnlyGroup = () => {
                         }
                     </div>
                     <div className='results-container'>
-                        <div className='incorrects-container resize-container'>
+                        <div className='incorrects-container'>
                             <p className='container-title'>Niepoprawne</p>
                             {
                                 incorrent.length !== 0 ? (
@@ -164,7 +178,7 @@ const TestOnlyGroup = () => {
                             }
                         </div>
                         <span className='seperated-line'></span>
-                        <div className='corrects-container resize-container'>
+                        <div className='corrects-container'>
                             <p className='container-title'>Poprawne</p>
                             {
                                 correct.length !== 0 ? (
@@ -188,4 +202,4 @@ const TestOnlyGroup = () => {
     )
 }
 
-export default TestOnlyGroup
+export default Test

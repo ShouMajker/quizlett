@@ -26,11 +26,7 @@
 
 .incorrects-container, .corrects-container {
     width: 50%;
-    resize: vertical;
-    overflow-y: auto;
-    position: relative;
-    max-height: 60vh;
-    min-height: 60vh;
+    padding: .5rem;
 }
 
 .container-title {
@@ -38,7 +34,7 @@
     font-size: 1.5rem;
     text-align: center;
     color: var(--primaryFontColor);
-    margin: .5em 0;
+    text-align: center;
 }
 
 .seperated-line {

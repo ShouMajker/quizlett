@@ -9,6 +9,7 @@ import 'swiper/swiper.min.css'
 import './LearningPage.css'
 
 import { Pagination, Navigation } from 'swiper'
+import EmptyFeedback from "../Modules/EmptyFeedback/EmptyFeedback"
 
 const LearningPage = () => {
 
@@ -31,8 +32,10 @@ const LearningPage = () => {
     return (
         <>
             <div className='main'>
-                {allRecords.length === 0 ? (
-                    <h1 className="emptyInfo">Grupa nie posiada żadnych pól!</h1>
+                {allRecords.length < 5 ? (
+                    <EmptyFeedback
+                        message='Aby zacząć naukę, musisz mieć conajmniej 5 tłumaczeń'
+                    />
                 ) : (
                     <Swiper
                         pagination={{
@@ -56,7 +59,6 @@ const LearningPage = () => {
                             )
                         })}
                     </Swiper>
-
                 )}
             </div>
         </>

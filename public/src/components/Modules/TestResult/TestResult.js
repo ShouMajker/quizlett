@@ -4,11 +4,11 @@ import TestEndedPng from '../../../Graphics/finishedTest.png'
 import Close from '../../../Graphics/close.png'
 import './TestResult.css'
 
-const TestResult = ({total, percent, handleCloseWindow}) => {
+const TestResult = ({total, percent, handleCloseWindow, seen}) => {
     const navigation = useNavigate()
     
     return (
-        <div className='test-result'>
+        <div className={`test-result ${seen}`}>
             <p className='container-title'>Gratulacje! Udało ci się przebrnąć przez test</p>
             <p className='container-title'>Twój wynik to: <span className='result'>{total} [{percent}]</span></p>
             <img className='test-ended-img' src={TestEndedPng} alt='Test ended'/>

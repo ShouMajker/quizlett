@@ -6,10 +6,10 @@ const cors = require('cors')
 const app = express()
 
 const dbData = {
-    host: 'localhost',
-    user: 'root',
-    password: '12345',
-    database: 'cards'
+    host: 'sql7.freesqldatabase.com',
+    user: 'sql7586295',
+    password: 'HwRVHux94J',
+    database: 'sql7586295'
 }
 
 const db = mysql.createPool({
@@ -175,6 +175,21 @@ app.post('/api/changeFavourite', (req, res) => {
     db.query(query, [value, id], (err, result) => {
         if(err) {
             return
+        }
+    })
+})
+
+
+app.get('/api/getRecordsToTest', (req, res) => {
+    const query = req.query.data
+
+    db.query(query, (err, result) => {
+        if(err) {
+            console.log(err)
+            return
+        }
+        else {
+            res.send(result)
         }
     })
 })

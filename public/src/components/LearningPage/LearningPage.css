@@ -1,29 +1,32 @@
 @import '../RootStyles/RootStyles.css';
 
 .main {
-    height: 90vh;
     display: flex;
     align-items: center;
-    max-width: 35em;
+    max-width: 40rem;
     margin: 0 auto;
+    background-color: var(--containerBgColorWithOpacity);
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 25vh;
 }
 
 .cardsSwiper {
     position: relative;
     margin: 0 auto;
-    background-color: var(--tableTheme);
-    border-radius: 1em;
+    background-color: var(--containerBgColor);
+    border-radius: .5rem;
 }
 
 .swiper-pagination {
     margin-top: 1em !important;
 }
 .swiper-pagination-progressbar-fill {
-    background: var(--rowEvenBg) !important;
+    background: var(--thBg) !important;
 }
 
 .swiper-button-next, .swiper-button-prev {
-    color: var(--rowEvenBg) !important;
+    color: var(--thBg) !important;
 }
 
 .scene {
@@ -54,12 +57,12 @@
     font-size: 1.5em;
     position: absolute;
     text-align: center;
-    border-radius: 1em;
+    border-radius: .5rem;
     font-weight: 600;
     width: 100%;
     height: 100%;
-    color: var(--rowEvenBg);
-    background-color: var(--tableTheme);
+    border: 3px solid var(--seperatedLineBgColor);
+    color: var(--thBg);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 }
