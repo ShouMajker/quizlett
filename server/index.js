@@ -7,10 +7,10 @@ const app = express()
 const port = process.env.PORT || 3001
 
 const dbData = {
-    host: 'sql7.freesqldatabase.com',
-    user: 'sql7586295',
-    password: 'HwRVHux94J',
-    database: 'sql7586295'
+    host: 'eu-cdbr-west-03.cleardb.net',
+    user: 'b01f1d771f84cd',
+    password: '7fca250e',
+    database: 'heroku_0b0841ee66ae0e8'
 }
 
 const db = mysql.createPool({

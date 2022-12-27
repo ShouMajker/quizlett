@@ -1,5 +1,5 @@
 const axiosData = {
-    url: `http://localhost:3001`
+    url: `https://quizzlet-heroku.herokuapp.com/`
 }
 
 export default axiosData
