@@ -23,6 +23,11 @@ const db = mysql.createPool({
 app.use(cors({origin: true, credentials: true}))
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
 
 app.get('/', (req, res) => {
     res.send("Server")
