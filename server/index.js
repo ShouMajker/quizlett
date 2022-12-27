@@ -8,9 +8,9 @@ const port = process.env.PORT || 3001
 
 const dbData = {
     host: 'eu-cdbr-west-03.cleardb.net',
-    user: 'b01f1d771f84cd',
-    password: '7fca250e',
-    database: 'heroku_0b0841ee66ae0e8'
+    user: 'b638dada4a785e',
+    password: '4aa33a8a',
+    database: 'heroku_c84666bfabb7ddb'
 }
 
 const db = mysql.createPool({

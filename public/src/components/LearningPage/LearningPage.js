@@ -10,17 +10,16 @@ import './LearningPage.css'
 
 import { Pagination, Navigation } from 'swiper'
 import EmptyFeedback from "../Modules/EmptyFeedback/EmptyFeedback"
+import axiosData from "../Modules/Connection"
 
 const LearningPage = () => {
 
     const {cardName, groupName} = useParams()
-    const port = '3001'
-    const url = `http://localhost:${port}`
     const tableName = `group_${cardName}_${groupName}`
     const [allRecords, setAllRecords] = useState([])
 
     useEffect(() => {
-        Axios.get(`${url}/api/getAllRecords`, {params: {selectedTable: tableName}})
+        Axios.get(`${axiosData.url}/api/getAllRecords`, {params: {selectedTable: tableName}})
         .then(res => {
             setAllRecords(res.data)
         })
