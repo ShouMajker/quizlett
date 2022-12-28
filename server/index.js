@@ -20,14 +20,14 @@ const db = mysql.createPool({
     database: dbData.database
 })
 
-app.use(cors({origin: true, credentials: true}))
 app.use(express.json())
-app.use(bodyParser.urlencoded({extended: true}))
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
-});
+app.use(cors({
+    origin: 'https://quizzlet-heroku.herokuapp.com',
+    credentials: true
+}))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 app.get('/', (req, res) => {
     res.send("Server")

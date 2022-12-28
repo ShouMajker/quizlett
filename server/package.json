@@ -22,5 +22,5 @@
   "engines": {
     "node": "16.17.x"
   },
-  "proxy": "https://quizzlet-heroku.herokuapp.com"
+  "proxy": "https://quizzlet-heroku.herokuapp.com/api/*"
 }
