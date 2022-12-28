@@ -49,7 +49,7 @@ const EditCard = () => {
         .catch(error => {
             console.log(error)
         })
-    }, [allRecords.length])
+    }, [])
 
     // Set default values when user wants to edit a row
     const handleEditClick = (event, card) => {
