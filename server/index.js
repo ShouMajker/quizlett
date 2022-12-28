@@ -4,7 +4,24 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const app = express()
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 8080
+
+app.use(express.json())
+app.use(cors({
+    origin: 'https://quizzlet.netlify.app',
+}))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "https://quizzlet.netlify.app");
+//     res.header(
+//       "Access-Control-Allow-Headers",
+//       "Origin, X-Requested-With, Content-Type, Accept"
+//     );
+//     next();
+// });
 
 const dbData = {
     host: 'eu-cdbr-west-03.cleardb.net',
@@ -19,15 +36,6 @@ const db = mysql.createPool({
     password: dbData.password,
     database: dbData.database
 })
-
-app.use(express.json())
-app.use(cors({
-    origin: 'https://quizzlet-heroku.herokuapp.com',
-    credentials: true
-}))
-app.use(bodyParser.urlencoded({
-    extended: true
-}))
 
 app.get('/', (req, res) => {
     res.send("Server")
@@ -51,7 +59,7 @@ app.post('/api/createCard', (req, res) => {
 app.get('/api/getAllCards', (req, res) => {
     const prefix = req.query.prefix;
     const query =
-        `SELECT ROW_NUMBER() OVER(PARTITION BY version) as id, TABLE_NAME as tables FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE CONCAT(?, '%')`
+        `SELECT TABLE_NAME as tables FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE CONCAT(?, '%')`
     db.query(query, [prefix], (err, result) => {
         if(err) {
             return

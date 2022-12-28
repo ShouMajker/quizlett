@@ -33,7 +33,6 @@ const CardGroups = () => {
         .catch(error => {
             console.log(error)
         })
-        Axios.get(`${axiosData.url}/api/`)
     }, [])
 
     const createGroup = (event) => {
