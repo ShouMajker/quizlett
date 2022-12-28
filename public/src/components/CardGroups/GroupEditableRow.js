@@ -2,10 +2,9 @@ import React from 'react';
 import Save from '../../Graphics/check.png'
 import Cancel from '../../Graphics/close.png'
 
-const GroupEditableRow = ({id, group, editedGroupName, handleEditGroupName, handleCancelClick, handleGroupNameSave}) => {
+const GroupEditableRow = ({group, editedGroupName, handleEditGroupName, handleCancelClick, handleGroupNameSave}) => {
     return (
         <tr>
-            <td>{id}</td>
             <td>
                 <input
                     className='form-edit-input'

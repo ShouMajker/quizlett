@@ -13,7 +13,7 @@ const CardGroups = () => {
 
     const [groupName, setGroupName] = useState('')
     const [currentTables, setCurrentTables] = useState([])
-    const [cardGroupId, setCardGroupId] = useState(null)
+    const [cardGroupNameToEdit, setCardGroupNameToEdit] = useState(null)
     const [editedGroupName, setEditedGroupName] = useState('')
     const [isWrongName, setIsWrongName] = useState(false)
     const [isAlreadyExist, setIsAlredyExist] = useState(false)
@@ -59,7 +59,8 @@ const CardGroups = () => {
     
     const handleEditClick = (event, group) => {
         event.preventDefault()
-        setCardGroupId(group.id)
+        const groupName = group.tables.slice(7 + cardName.length)
+        setCardGroupNameToEdit(groupName)
         const slicedName = group.tables.slice(7 + cardName.length)
         setEditedGroupName(slicedName)
     }
@@ -82,12 +83,12 @@ const CardGroups = () => {
         }
 
         Axios.post(`${axiosData.url}/api/updateGroupName`, {data: edited })
-        setCardGroupId(null)
+        setCardGroupNameToEdit(null)
         window.location.reload()
     }
 
     const handleCancelClick = () => {
-        setCardGroupId(null)
+        setCardGroupNameToEdit(null)
     }
 
     const deleteGroup = (groupName) => {
@@ -149,7 +150,6 @@ const CardGroups = () => {
                                 <table className='table'>
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
                                             <th>Nazwa grupy</th>
                                             <th>Akcje</th>
                                         </tr>
@@ -158,10 +158,9 @@ const CardGroups = () => {
                                         {currentTables.map((table, index) => {
                                             return (
                                                 <Fragment key={index}>
-                                                    {cardGroupId === table.id ? (
+                                                    {cardGroupNameToEdit === table.tables ? (
                                                         <GroupEditableRow
                                                             key={index}
-                                                            id={table.id}
                                                             group={table}
                                                             editedGroupName={editedGroupName}
                                                             handleEditGroupName={handleEditGroupName}
