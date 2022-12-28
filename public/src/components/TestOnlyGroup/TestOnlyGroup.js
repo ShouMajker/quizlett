@@ -63,23 +63,25 @@ const TestOnlyGroup = () => {
     }
     
     const correctAnswer = () => {
-        setCorrect(prev => [...prev, {
+        setCorrect(prev => [{
             id: dataValues[1],
             english: dataValues[2],
             polish: dataValues[3],
             favourite: dataValues[4]
-        }])
+        },
+        ...prev ])
     }
 
     const incorrentAnswer = (language) => {
-        setIncorrect(prev => [...prev, {
+        setIncorrect(prev => [{
             id: dataValues[1],
             english: dataValues[2],
             polish: dataValues[3],
             favourite: dataValues[4],
             userInput: word,
             languageToTranslate: language
-        }])
+        },
+        ...prev ])
     }
 
 
