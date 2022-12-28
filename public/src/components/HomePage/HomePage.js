@@ -10,9 +10,6 @@ import Edit from './../../Graphics/edit.png'
 import Approval from './../../Graphics/approval.png'
 import Delete from './../../Graphics/delete.png'
 
-import './HomePage.css'
-
-
 const HomePage = () => {
     const [cardsList, setCardsList] = useState([]);
     const [isDeletingCard, setIsDeletingCard] = useState({

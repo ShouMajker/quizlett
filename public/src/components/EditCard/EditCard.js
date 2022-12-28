@@ -7,8 +7,6 @@ import EditableRow from './EditableRow'
 import ReadOnlyRow from './ReadOnlyRow'
 import EmptyFeedback from '../Modules/EmptyFeedback/EmptyFeedback'
 
-import './EditCard.css'
-import '../HomePage/HomePage.css'
 import Loader from '../Modules/Loader/Loader'
 
 const EditCard = () => {

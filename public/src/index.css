@@ -68,8 +68,241 @@ body {
 		background-position: 0% 50%;
 	}
 }
+@media only screen and (max-width: 992px) {
+  .logo {
+    padding: 1rem 2rem;
+  }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  .container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .resize-container {
+    max-height: 40vh;
+    min-height: fit-content;
+    width: fit-content;
+    overflow-y: auto;
+    overflow-x: scroll;
+  }
+
+  .container-opacity {
+    overflow: auto;
+  }
+
+  .table-container {
+    overflow-x: scroll;
+    width: 100%;
+  }
+
+  .form-feedback {
+    width: 75%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .logo {
+    padding: 1rem 4rem;
+  }
+
+  .resize-container {
+    max-height: 60vh;
+  }
+  
+  .form-feedback {
+    width: 30%;
+  }
+  .container {
+    flex-direction: row;
+  }
+}
+
+.container-opacity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--containerBgColorWithOpacity);
+  border-radius: 1rem;
+  padding: 1rem;
+  width: fit-content;
+  height: fit-content;
+}
+
+.group-container {
+  background-color: var(--containerBgColor);
+  padding: 1rem 2rem;
+  border-radius: .5rem;
+  display: flex;
+  flex-direction: column;
+  margin: .5rem 0;
+  gap: 1rem;
+  min-width: 25vw;
+  position: relative;
+  align-items: center;
+  max-width: fit-content;
+}
+
+.container {
+  margin: 1rem auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: .5rem;
+  position: relative;
+}
+
+
+.action-text {
+  white-space: nowrap;
+}
+.resize-container {
+  min-height: fit-content;
+  overflow: auto;
+  border-radius: 1rem;
+  margin: 0;
+}
+
+.form-checkbox {
+    display: none;
+}
+
+.form-checkbox + label span {
+    display:inline-block;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.form-checkbox + label span::before, .form-checkbox + label span::after {
+    transition: all .2s ease-in-out;
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: -25px;
+    top: 8px;
+    background: transparent;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--markedBgColor);
+}
+.form-checkbox + label span::after {
+    z-index: 0;
+    border: none;
+}
+
+.form-checkbox:checked + label span::before {
+    background: var(--markedBgColor);
+    transform: rotateZ(180deg);
+}
+
+.button {
+  background-color: var(--markedBgColor);
+  border: none;
+  padding: 1rem 4rem;
+  font-size: 1.25rem;
+  border-radius: .5rem;
+  font-weight: 500;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--thBg)
+}
+
+.button:hover {
+    background-color: var(--markedBgColorDarker);
+}
+
+/* table */
+.table {
+  background-color: var(--containerBgColor);
+  border-radius: .5rem;
+  backdrop-filter: blur(100px);
+  border-collapse: collapse;
+  max-height: 50vh;
+}
+
+.table td, th {
+  padding: .5em 1em;
+  font-size: 1.25rem;
+}
+
+.table th {
+  text-align: left;
+  color: var(--thBg);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.table tr:nth-child(even) td {
+  background-color: var(--rowEvenBg);
+}
+
+.table tr:nth-child(odd) td {
+  background-color: var(--rowOddBg);
+}
+
+.table-td-action {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: .25rem;
+  color: var(--thBg);
+  transition: all .2s ease-in-out;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.table .table-td-action:hover .action-text:not(.delete) {
+  color: var(--markedBgColor);
+}
+
+.table .table-img {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+th:first-of-type {
+  border-top-left-radius: .5rem;
+}
+
+th:last-of-type {
+  border-top-right-radius: .5rem;
+}
+
+tr:last-of-type td:first-of-type {
+  border-bottom-left-radius: .5rem;
+}
+
+tr:last-of-type td:last-of-type {
+  border-bottom-right-radius: .5rem;
+}
+
+.edit-container {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.form-edit-input {
+  border: none;
+  font-size: 1.25rem;
+  padding: 0 .25rem;
+  border-radius: .25rem;
+  width: 100%;
+}
+
+.form-edit-input:focus {
+  outline: none;
+}
+
+.delete {
+  color: var(--incorrectFontColor)
 }

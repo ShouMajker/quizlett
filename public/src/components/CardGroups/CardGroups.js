@@ -153,7 +153,7 @@ const CardGroups = () => {
                         onSubmitHandler={createGroup}
                     />
                 </div>
-                <div>
+                <div className='table-container'>
                     {loading ? <Loader /> :
                         currentTables.length === 0 ? (
                             <div className='group-container'>
@@ -165,7 +165,7 @@ const CardGroups = () => {
                                     <table className='table'>
                                         <thead>
                                             <tr>
-                                                <th>Nazwa grupy</th>
+                                                <th>Nazwa</th>
                                                 <th>Akcje</th>
                                             </tr>
                                         </thead>

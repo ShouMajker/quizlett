@@ -8,7 +8,6 @@
     color: var(--markedBgColor);
     font-size: 2rem;
     font-weight: 700;
-    padding: 1rem 4rem;
     border-right: 3px solid var(--markedBgColor);
     text-decoration: none;
 }
@@ -29,6 +28,7 @@
     position: relative;
     font-weight: 600;
     font-size: 1.25rem;
+    white-space: nowrap;
 }
 .navbar-link:not(.active):not(.logo)::before {
     content: '';

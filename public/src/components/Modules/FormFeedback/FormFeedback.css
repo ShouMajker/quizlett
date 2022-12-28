@@ -1,13 +1,12 @@
 .form-feedback {
-    background-color: var(--containerBgColor);
+    background-color: var(--markedBgColor);
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
     height: 20%;
-    width: 30%;
     position: absolute;
-    top: -20%;
+    top: -30%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 20;
@@ -21,7 +20,7 @@
     margin: .5rem 0;
 }
 .form-feedback-message {
-    background-color: var(--markedBgColor);
+    background-color: var(--containerBgColor);
     border-radius: .5rem;
     padding: 1rem;
     font-size: 1.25rem;
@@ -36,6 +35,6 @@
     cursor: pointer;
 }
 .seen {
-    transform: translate(-50%, 270%);
+    transform: translate(-50%, 320%);
     visibility: visible;
 }

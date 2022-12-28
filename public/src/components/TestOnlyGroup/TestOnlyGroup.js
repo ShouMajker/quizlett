@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 
 import axiosData from '../Modules/Connection'
-import TestInput from '../Modules/Test/TestInput'
-import TestFeedback from '../Modules/Test/TestFeedback'
+import TestInput from '../Modules/TestInput/TestInput'
+import TestFeedback from '../Modules/TestInput/TestFeedback'
 import TestResult from '../Modules/TestResult/TestResult'
 import EmptyFeedback from '../Modules/EmptyFeedback/EmptyFeedback'
 

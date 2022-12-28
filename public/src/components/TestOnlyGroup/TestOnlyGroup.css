@@ -1,32 +1,85 @@
+@media only screen and (max-width: 992px) {
+    .test-container, .results-container {
+        width: 100%;
+    }
+
+    .input {
+        width: 50vw;
+    }
+
+    .form {
+        width: 75%;
+    }
+
+    .input:focus + .input-border-bottom,
+    .input:hover + .input-border-bottom {
+        width: 50vw;
+    }
+
+    .results-container {
+        flex-direction: column;
+    }
+
+    .seperated-line {
+        border: 2px solid var(--markedBgColor);
+        margin: .5rem 0;
+    }
+
+    .incorrects-container, .corrects-container {
+        width: 100%;
+        padding: .5rem;
+        max-height: 30vh;
+    }
+}
+@media only screen and (min-width: 992px) {
+    .input {
+        width: 15vw;
+    }
+
+    .form {
+        width: 50%;
+    }
+
+    .input:focus + .input-border-bottom,
+    .input:hover + .input-border-bottom {
+        width: 15vw;
+    }
+
+    .results-container {
+        flex-direction: row;
+    }
+
+    .seperated-line {
+        border: 2px solid var(--markedBgColor);
+        margin: -.5em 0;
+    }
+
+    .incorrects-container, .corrects-container {
+        width: 50%;
+        padding: .5rem;
+    }
+}
+
 .main-container {
     display: grid;
     justify-items: center;
     margin: .5rem 0;
 }
+
 .test-container, .results-container {
     border-radius: 1rem;
     padding: .5rem;
     display: flex;
     gap: .5rem;
     margin: .5rem 0;
-    flex-direction: column;
     min-width: 50%;
     position: relative;
+    background-color: var(--containerBgColorWithOpacity);
 }
+
 .test-container {
-    background-color: var(--containerBgColorWithOpacity);
+    flex-direction: column;
     align-items: center;
-}
-
-.results-container {
-    background-color: var(--containerBgColorWithOpacity);
-    display: flex;
-    flex-direction: row;
-}
-
-.incorrects-container, .corrects-container {
-    width: 50%;
-    padding: .5rem;
 }
 
 .container-title {
@@ -35,11 +88,6 @@
     text-align: center;
     color: var(--primaryFontColor);
     text-align: center;
-}
-
-.seperated-line {
-    border: 2px solid var(--markedBgColor);
-    margin: -.5em 0;
 }
 
 .group-name {
@@ -54,7 +102,6 @@
     flex-direction: column;
     align-items: center;
     gap: 1em;
-    width: 40%;
     background-color: var(--containerBgColor);
     border-radius: .5em;
     padding: 2em;
@@ -73,16 +120,10 @@
     border: none;
     border-bottom: 3px solid var(--seperatedLineBgColor);
     background: none;
-    width: 15vw;
 }
 
 .input:focus {
     outline: none;
-}
-
-.input:focus + .input-border-bottom,
-.input:hover + .input-border-bottom {
-    width: 15vw;
 }
 
 .input-border-bottom {
