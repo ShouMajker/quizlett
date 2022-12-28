@@ -49,7 +49,7 @@ const LearningPage = () => {
                     >
                         {allRecords.map((values, index) => {
                             return (
-                                <SwiperSlide>
+                                <SwiperSlide key={index}>
                                     <RotatingCard
                                         key={index}
                                         data={values}

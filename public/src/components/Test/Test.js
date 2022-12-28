@@ -77,23 +77,25 @@ const Test = () => {
     }
     
     const correctAnswer = () => {
-        setCorrect(prev => [...prev, {
+        setCorrect(prev => [{
             id: dataValues[1],
             english: dataValues[2],
             polish: dataValues[3],
             favourite: dataValues[4]
-        }])
+        },
+        ...prev ])
     }
 
     const incorrentAnswer = (language) => {
-        setIncorrect(prev => [...prev, {
+        setIncorrect(prev => [{
             id: dataValues[1],
             english: dataValues[2],
             polish: dataValues[3],
             favourite: dataValues[4],
             userInput: word,
             languageToTranslate: language
-        }])
+        },
+        ...prev ])
     }
 
 
@@ -160,7 +162,7 @@ const Test = () => {
                         }
                     </div>
                     <div className='results-container'>
-                        <div className='incorrects-container'>
+                        <div className='incorrects-container resize-container'>
                             <p className='container-title'>Niepoprawne</p>
                             {
                                 incorrent.length !== 0 ? (
@@ -178,7 +180,7 @@ const Test = () => {
                             }
                         </div>
                         <span className='seperated-line'></span>
-                        <div className='corrects-container'>
+                        <div className='corrects-container resize-container'>
                             <p className='container-title'>Poprawne</p>
                             {
                                 correct.length !== 0 ? (

@@ -1,11 +1,13 @@
 import React, { useState, useEffect, Fragment } from "react"
 import { Navigate, useParams } from "react-router-dom"
 import Axios from 'axios'
+
+import axiosData from "../Modules/Connection"
 import FormOnlyName from "../Modules/FormOnlyName/FormOnlyName"
 import GroupReadOnlyRow from "./GroupReadOnlyRow"
 import GroupEditableRow from "./GroupEditableRow"
 import FormFeedback from "../Modules/FormFeedback/FormFeedback"
-import axiosData from "../Modules/Connection"
+import Loader from "../Modules/Loader/Loader"
 
 const CardGroups = () => {
 
@@ -22,10 +24,13 @@ const CardGroups = () => {
         deleting: false,
         groupName: ''
     })
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         Axios.get(`${axiosData.url}/api/getAllCards`, {params: {prefix: `group_${cardName}_`}})
         .then(res => {
+            setLoading(false)
             setCurrentTables(
                 res.data.filter(item => item.tables.includes(`group_${cardName}_`))
             )
@@ -60,8 +65,9 @@ const CardGroups = () => {
     const handleEditClick = (event, group) => {
         event.preventDefault()
         const groupName = group.tables.slice(7 + cardName.length)
-        setCardGroupNameToEdit(groupName)
         const slicedName = group.tables.slice(7 + cardName.length)
+
+        setCardGroupNameToEdit(groupName)
         setEditedGroupName(slicedName)
     }
 
@@ -70,9 +76,14 @@ const CardGroups = () => {
         setEditedGroupName(event.target.value)
     }
 
-    const handleGroupNameSave = (tableName) => {
+    const handleGroupNameSave = (event, tableName) => {
+        event.preventDefault()
         if(editedGroupName.trim() === '') {
             setIsWrongName(true)
+            return
+        }
+        if(currentTables.filter(data => data.tables === `group_${cardName}_${editedGroupName}`).length > 0) {
+            setIsAlredyExist(true)
             return
         }
 
@@ -93,7 +104,10 @@ const CardGroups = () => {
 
     const deleteGroup = (groupName) => {
         Axios.post(`${axiosData.url}/api/deleteGroup`, {deletedTable: `group_${cardName}_${groupName}`})
-        setDeletingGroup({deleting: false, groupName: ''})
+        setDeletingGroup({
+            deleting: false,
+            groupName: ''
+        })
         window.location.reload()
     }
     
@@ -140,50 +154,52 @@ const CardGroups = () => {
                     />
                 </div>
                 <div>
-                    {currentTables.length === 0 ? (
-                        <div className='group-container'>
-                            <p className='container-title'>Wygląda na to, że nie masz jeszcze żadnych grup 🧐</p>
-                        </div>
-                    ) : (
-                        <div>
-                            <form className='container-opacity resize-container'>
-                                <table className='table'>
-                                    <thead>
-                                        <tr>
-                                            <th>Nazwa grupy</th>
-                                            <th>Akcje</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {currentTables.map((table, index) => {
-                                            return (
-                                                <Fragment key={index}>
-                                                    {cardGroupNameToEdit === table.tables ? (
-                                                        <GroupEditableRow
-                                                            key={index}
-                                                            group={table}
-                                                            editedGroupName={editedGroupName}
-                                                            handleEditGroupName={handleEditGroupName}
-                                                            handleCancelClick={handleCancelClick}
-                                                            handleGroupNameSave={handleGroupNameSave}
-                                                        />
-                                                    ) : (
-                                                        <GroupReadOnlyRow
-                                                            key={index}
-                                                            group={table}
-                                                            currentTable={cardName}
-                                                            handleEditClick={handleEditClick}
-                                                            handleDeletingGroup={setDeletingGroup}
-                                                        />
-                                                    )}
-                                                </Fragment>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
-                            </form>
-                        </div>
-                    )}
+                    {loading ? <Loader /> :
+                        currentTables.length === 0 ? (
+                            <div className='group-container'>
+                                <p className='container-title'>Wygląda na to, że nie masz jeszcze żadnych grup 🧐</p>
+                            </div>
+                        ) : (
+                            <div>
+                                <form className='container-opacity resize-container' onSubmit={handleGroupNameSave}>
+                                    <table className='table'>
+                                        <thead>
+                                            <tr>
+                                                <th>Nazwa grupy</th>
+                                                <th>Akcje</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {currentTables.map((table, index) => {
+                                                return (
+                                                    <Fragment key={index}>
+                                                        {cardGroupNameToEdit === table.tables.slice(7 + cardName.length) ? (
+                                                            <GroupEditableRow
+                                                                key={index}
+                                                                group={table}
+                                                                editedGroupName={editedGroupName}
+                                                                handleEditGroupName={handleEditGroupName}
+                                                                handleCancelClick={handleCancelClick}
+                                                                handleGroupNameSave={handleGroupNameSave}
+                                                            />
+                                                        ) : (
+                                                            <GroupReadOnlyRow
+                                                                key={index}
+                                                                group={table}
+                                                                currentTable={cardName}
+                                                                handleEditClick={handleEditClick}
+                                                                handleDeletingGroup={setDeletingGroup}
+                                                            />
+                                                        )}
+                                                    </Fragment>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </>

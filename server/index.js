@@ -9,6 +9,7 @@ const port = process.env.PORT || 8080
 app.use(express.json())
 app.use(cors({
     origin: 'https://quizzlet.netlify.app',
+    // origin: 'http://localhost:3000'
 }))
 app.use(bodyParser.urlencoded({
     extended: true
@@ -22,6 +23,14 @@ app.use((req, res, next) => {
     );
     next();
 });
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+//     res.header(
+//       "Access-Control-Allow-Headers",
+//       "Origin, X-Requested-With, Content-Type, Accept"
+//     );
+//     next();
+// });
 
 const dbData = {
     host: 'eu-cdbr-west-03.cleardb.net',
@@ -29,6 +38,13 @@ const dbData = {
     password: '4aa33a8a',
     database: 'heroku_c84666bfabb7ddb'
 }
+
+// const dbData = {
+//     host: 'localhost',
+//     user: 'root',
+//     password: '12345',
+//     database: 'cards'
+// }
 
 const db = mysql.createPool({
     host: dbData.host,

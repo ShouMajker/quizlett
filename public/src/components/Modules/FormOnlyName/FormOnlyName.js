@@ -13,6 +13,7 @@ const FormOnlyName = ({creatingElementName, onChangeHandler, onSubmitHandler, va
                     <label className='input-info' htmlFor="input">Nie może zawierać: group, card</label>
                 </div>
                 <input
+                    autoFocus
                     className='form-input'
                     id='input'
                     name="name"

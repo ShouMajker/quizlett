@@ -39,7 +39,6 @@
     flex-direction: column;
     justify-content: center;
     margin: 0 .5rem;
-    padding: .5rem 0;
 }
 
 .feedback-incorrect {

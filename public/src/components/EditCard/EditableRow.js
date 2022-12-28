@@ -37,6 +37,8 @@ const EditableRow = ({editCardData, handleEditCardData, handleCancelClick, handl
                     <img className='table-img' src={Save} alt='save' />
                     <span className='table-button'>Zapisz</span>
                 </div>
+            </td>
+            <td className='table-td-action'>
                 <div className='edit-container' onClick={handleCancelClick}>
                     <img className='table-img' src={Cancel} alt='cancel' />
                     <span className='table-button'>Anuluj</span>

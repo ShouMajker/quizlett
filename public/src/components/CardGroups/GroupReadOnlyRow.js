@@ -11,7 +11,6 @@ const GroupReadOnlyRow = ({group, currentTable, handleEditClick, handleDeletingG
 
     return (
         <tr>
-            <td>{group.id}</td>
             <td>{groupName}</td>
             <td className='table-td-action'>
                 <div className='edit-container' onClick={(event) => handleEditClick(event, group)}>

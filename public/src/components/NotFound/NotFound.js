@@ -6,15 +6,18 @@ const NotFound = () => {
     useEffect(() => {
         setTimeout(() => {
             navigate('/')
-        }, 2000)
+        }, 5000)
     }, [])
     return (
         // Redirect immediately user if he has typed a wrong url
         // <Navigate to='/' />
-        <>
-            <h1>Błąd wczytywania strony: 404</h1>
-            <h3>Za chwile zostaniesz przekierowany na stronę główną</h3>
-        </>
+        <div className='container'>
+            <div className='container-opacity'>
+            <p className='container-title'>Błąd wczytywania strony: <span className='result'>404</span></p>
+            <p className='container-title'>Za chwile zostaniesz przekierowany na stronę główną</p>
+
+            </div>
+        </div>
     )
 }
 

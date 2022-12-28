@@ -10,6 +10,7 @@ const TestInput = ({choice, wordValue, data, handleOnChange}) => {
                 {choice === 'english' ? dataValues[2]: dataValues[3]}
             </label>
             <input
+                autoFocus
                 id='testText'
                 type='text'
                 className='input'
