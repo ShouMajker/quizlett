@@ -38,6 +38,7 @@ const EditCard = () => {
         setEnglishPhrase('')
         setPolishPhrase('')
         setFavouriteInForm(0)
+        window.location.reload()
     }
 
     // Getting all data from table
