@@ -11,7 +11,7 @@ const Test = () => {
     const { cardName } = useParams()
     const [allRecords, setAllRecords] = useState([])
     const [id, setId] = useState(0)
-    const [choice, setChoice] = useState()
+    const [choice, setChoice] = useState(null)
     const [word, setWord] = useState('')
     const [incorrent, setIncorrect] = useState([])
     const [correct, setCorrect] = useState([])
@@ -51,7 +51,6 @@ const Test = () => {
                             favourite: record.favourite
                         })
                     }))
-                    randChoice()
                 })
                 .catch(err => {
                     console.log(err)
@@ -147,56 +146,71 @@ const Test = () => {
                 </div>
             ) : (
                 <>
-                    <div className='test-container'>
-                        <p className='container-title'>Test z fiszki: <span className='group-name'>{cardName}</span></p>
-                        {!isEnded &&
-                            <form className='form' onSubmit={handleOnKeyDown}>
-                                <TestInput
-                                    choice={choice}
-                                    wordValue={word}
-                                    data={allRecords.find(item => item.drawIndex === id)}
-                                    handleOnChange={handleOnChange}
-                                />
-                                <span className='counter'>{id + 1} / {allRecords.length}</span>
-                            </form>
-                        }
-                    </div>
-                    <div className='results-container'>
-                        <div className='incorrects-container resize-container'>
-                            <p className='container-title'>Niepoprawne</p>
-                            {
-                                incorrent.length !== 0 ? (
-                                    incorrent.map((item, index) => (
-                                        <TestFeedback
-                                            key={index}
-                                            type={'incorrect'}
-                                            drawWord={item.languageToTranslate === 'polish' ? item.english : item.polish}
-                                            userInput={item.userInput}
-                                            correctTranslate={item.languageToTranslate === 'polish' ? item.polish : item.english}
-                                            isFavourite={item.favourite}
-                                        />
-                                    ))
-                                ) : <p className='container-title'>Oby tak dalej 🥳</p>
-                            }
+                    {choice === null ? (
+                        <div className='container-opacity'>
+                            <div className='group-container'>
+                                <p className='container-title'>Wybierz rodzaj testu:</p>
+                                <div className='buttons-group'>
+                                    <button className='button' onClick={() => randChoice()}>Mieszany</button>
+                                    <button className='button' onClick={() => setChoice('polish')}>Polski ➔ Angielski</button>
+                                    <button className='button' onClick={() => setChoice('english')}>Angielski ➔ Polski</button>
+                                </div>
+                            </div>
                         </div>
-                        <span className='seperated-line'></span>
-                        <div className='corrects-container resize-container'>
-                            <p className='container-title'>Poprawne</p>
-                            {
-                                correct.length !== 0 ? (
-                                    correct.map((item, index) => (
-                                        <TestFeedback
-                                            key={index}
-                                            type={'correct'}
-                                            drawWord={item.languageToTranslate === 'polish' ? item.english : item.polish}
-                                            correctTranslate={item.languageToTranslate === 'polish' ? item.polish : item.english}
-                                            isFavourite={item.favourite}
+                    ) : (
+                        <>
+                            <div className='test-container'>
+                                <p className='container-title'>Test z fiszki: <span className='group-name'>{cardName}</span></p>
+                                {!isEnded &&
+                                    <form className='form' onSubmit={handleOnKeyDown}>
+                                        <TestInput
+                                            choice={choice}
+                                            wordValue={word}
+                                            data={allRecords.find(item => item.drawIndex === id)}
+                                            handleOnChange={handleOnChange}
                                         />
-                                    ))
-                                ) : null
-                            }
-                        </div>
-                    </div>
+                                        <span className='counter'>{id + 1} / {allRecords.length}</span>
+                                    </form>
+                                }
+                            </div>
+                            <div className='results-container'>
+                                <div className='incorrects-container resize-container'>
+                                    <p className='container-title'>Niepoprawne</p>
+                                    {
+                                        incorrent.length !== 0 ? (
+                                            incorrent.map((item, index) => (
+                                                <TestFeedback
+                                                    key={index}
+                                                    type={'incorrect'}
+                                                    drawWord={item.languageToTranslate === 'polish' ? item.english : item.polish}
+                                                    userInput={item.userInput}
+                                                    correctTranslate={item.languageToTranslate === 'polish' ? item.polish : item.english}
+                                                    isFavourite={item.favourite}
+                                                />
+                                            ))
+                                        ) : <p className='container-title'>Oby tak dalej 🥳</p>
+                                    }
+                                </div>
+                                <span className='seperated-line'></span>
+                                <div className='corrects-container resize-container'>
+                                    <p className='container-title'>Poprawne</p>
+                                    {
+                                        correct.length !== 0 ? (
+                                            correct.map((item, index) => (
+                                                <TestFeedback
+                                                    key={index}
+                                                    type={'correct'}
+                                                    drawWord={item.languageToTranslate === 'polish' ? item.english : item.polish}
+                                                    correctTranslate={item.languageToTranslate === 'polish' ? item.polish : item.english}
+                                                    isFavourite={item.favourite}
+                                                />
+                                            ))
+                                        ) : null
+                                    }
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </>
             )}
             </main>

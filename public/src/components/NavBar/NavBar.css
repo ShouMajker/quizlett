@@ -1,35 +1,21 @@
-.navbar {
-    background-color: var(--rowEvenBg);
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
 .logo {
     color: var(--markedBgColor);
     font-size: 2rem;
     font-weight: 700;
-    border-right: 3px solid var(--markedBgColor);
+    border-right: 2px solid var(--markedBgColor);
     text-decoration: none;
 }
-.navbar-list {
-    list-style-type: none;
-    display: flex;
-    flex-direction: row;
-    font-size: 1.2rem;
-    gap: 2rem;
-}
-.navbar-item {
-    display: inline-block;
-}
+
 .navbar-link {
     color: var(--thBg);
     text-decoration: none;
-    border-bottom: 0px solid var(--markedBgColor);
+    /* border-bottom: 0px solid var(--markedBgColor); */
     position: relative;
     font-weight: 600;
     font-size: 1.25rem;
     white-space: nowrap;
 }
+
 .navbar-link:not(.active):not(.logo)::before {
     content: '';
     position: absolute;
@@ -40,9 +26,145 @@
     background-color: var(--markedBgColor);
     transition: all .2s ease-in-out;
 }
+
 .navbar-link:not(.active):hover::before {
     width: 100%;
 }
+
 .active:not(.logo) {
-    border-bottom: 3px solid var(--markedBgColor);
+    border-bottom: 2px solid var(--markedBgColor);
+}
+
+.top-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--rowEvenBg);
+    padding: .85rem;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    z-index: 30;
+}
+  
+.menu > li {
+    margin: 0 1.5rem;
+    overflow: hidden;
+}
+  
+.menu-button-container {
+    display: none;
+    height: 100%;
+    width: 30px;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu-button,
+.menu-button::before,
+.menu-button::after {
+    display: block;
+    background-color: var(--markedBgColor);
+    position: absolute;
+    height: 4px;
+    width: 30px;
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    border-radius: 2px;
+}
+
+.menu-button::before {
+    content: '';
+    margin-top: -8px;
+}
+
+.menu-button::after {
+    content: '';
+    margin-top: 8px;
+}
+
+#menu-toggle:checked + .menu-button-container .menu-button::before {
+    margin-top: 0px;
+    transform: rotate(405deg);
+}
+
+#menu-toggle:checked + .menu-button-container .menu-button {
+    background: rgba(255, 255, 255, 0);
+}
+
+#menu-toggle:checked + .menu-button-container .menu-button::after {
+    margin-top: 0px;
+    transform: rotate(-405deg);
+}
+
+@media (max-width: 992px) {
+    .menu-button-container {
+        display: flex;
+    }
+    .menu {
+        position: absolute;
+        top: 0;
+        margin-top: 4.5rem;
+        left: 0;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    #menu-toggle ~ .menu li {
+        height: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    #menu-toggle:checked ~ .menu li {
+        border-top: 2px solid var(--markedBgColor);
+        height: 5rem;
+        padding: 0.5em;
+        transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    #menu-toggle:checked ~ .menu li:last-child {
+        border-bottom: 2px solid var(--markedBgColor);
+    }
+    .menu > li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0.5em 0;
+        width: 100%;
+        color: var(--thBg);
+        background-color: var(--rowEvenBg);
+    }
+}
+@media only screen and (min-width: 992px) {
+    .navbar {
+        background-color: var(--rowEvenBg);
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+    .navbar-list {
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        font-size: 1.2rem;
+        gap: 2rem;
+    }
+    .navbar-item {
+        display: inline-block;
+    }
 }

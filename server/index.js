@@ -62,7 +62,7 @@ app.get('/', (req, res) => {
 app.post('/api/createCard', (req, res) => {
 
     const tableName = req.body.tableName
-    const query = `CREATE TABLE card_${tableName} (id int PRIMARY KEY AUTO_INCREMENT, english text, polish text);`
+    const query = `CREATE TABLE card_${tableName} (id int PRIMARY KEY AUTO_INCREMENT);`
     
     db.query(query, (err, result) => {
         if(err) {

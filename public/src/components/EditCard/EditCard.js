@@ -177,51 +177,53 @@ const EditCard = () => {
                     </form>
                 </div>
             </div>
-            <div>
+            <div className='table-container'>
                 {loading ? <Loader /> :
                     allRecords.length === 0 ? (
                         <EmptyFeedback
                             message='Wygląda na to, że nie masz jeszcze żadnych tłumaczeń'
                         />
                     ) : (
-                        <form className='container-opacity resize-container'>
-                            <table className='table'>
-                                <thead>
-                                    <tr>
-                                        <th>Tekst angielski</th>
-                                        <th>Tekst polski</th>
-                                        <th></th>
-                                        <th>Akcje</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {allRecords.map((card, index) => {
-                                        return (
-                                            <Fragment key={index}>
-                                                {editCardId === card.id ? (
-                                                    <EditableRow
-                                                        key={index}
-                                                        card={card}
-                                                        editCardData={editCardData}
-                                                        handleEditCardData={handleEditCardData}
-                                                        handleCancelClick={handleCancelClick}
-                                                        handleEditCardSave={handleEditCardSave}
-                                                    />
-                                                ) : (
-                                                    <ReadOnlyRow
-                                                        key={index}
-                                                        card={card}
-                                                        handleEditClick={handleEditClick}
-                                                        handleDeleteClick={handleDeleteClick}
-                                                        handleChangeFavourite={handleChangeFavourite}
-                                                    />
-                                                )}
-                                            </Fragment>
-                                        )
-                                    })}
-                                </tbody>
-                            </table>
-                        </form>
+                        <div>
+                            <form className='container-opacity resize-container'>
+                                <table className='table'>
+                                    <thead>
+                                        <tr>
+                                            <th>Tekst angielski</th>
+                                            <th>Tekst polski</th>
+                                            <th></th>
+                                            <th>Akcje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {allRecords.map((card, index) => {
+                                            return (
+                                                <Fragment key={index}>
+                                                    {editCardId === card.id ? (
+                                                        <EditableRow
+                                                            key={index}
+                                                            card={card}
+                                                            editCardData={editCardData}
+                                                            handleEditCardData={handleEditCardData}
+                                                            handleCancelClick={handleCancelClick}
+                                                            handleEditCardSave={handleEditCardSave}
+                                                        />
+                                                    ) : (
+                                                        <ReadOnlyRow
+                                                            key={index}
+                                                            card={card}
+                                                            handleEditClick={handleEditClick}
+                                                            handleDeleteClick={handleDeleteClick}
+                                                            handleChangeFavourite={handleChangeFavourite}
+                                                        />
+                                                    )}
+                                                </Fragment>
+                                            )
+                                        })}
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
                     )
                 }
             </div>

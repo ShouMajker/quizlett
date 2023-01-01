@@ -4,7 +4,7 @@ import './Loader.css'
 const Loader = () => {
     return (
         <div className='container-opacity'>
-            <div class="lds-dual-ring"></div>
+            <div className="lds-dual-ring"></div>
             <p className='container-title'>Pobieranie danych...</p>
         </div>
     )
