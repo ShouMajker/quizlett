@@ -106,13 +106,13 @@ const Test = () => {
 
         //Checking if user has entered the correct input
         if(choice === 'english') {
-            if(word.trim() === dataValues[3]) {
+            if(word.trim().toLowerCase() === dataValues[3].toLowerCase()) {
                 correctAnswer()
             } else {
                 incorrentAnswer('polish')
             }
         } else {
-            if(word.trim() === dataValues[2]) {
+            if(word.trim().toLowerCase() === dataValues[2].toLowerCase()) {
                 correctAnswer()
             } else {
                 incorrentAnswer('english')
