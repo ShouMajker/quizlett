@@ -61,7 +61,7 @@ const CardGroups = () => {
         Axios.post(`${axiosData.url}/api/CreateNewGroup`, {tableName: groupNameToSend})
         setIsGroupCreated(true)
     }
-    
+
     const handleEditClick = (event, group) => {
         event.preventDefault()
         const groupName = group.tables.slice(7 + cardName.length)

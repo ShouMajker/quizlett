@@ -36,7 +36,6 @@ const EditCard = () => {
         .catch(error => {
             console.log(error)
         })
-        console.log('lala')
     }, [])
 
     const formSubmit = (e) => {
