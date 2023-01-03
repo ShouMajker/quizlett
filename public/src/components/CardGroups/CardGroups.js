@@ -153,7 +153,7 @@ const CardGroups = () => {
                         onSubmitHandler={createGroup}
                     />
                 </div>
-                <div className='table-container'>
+                <div className={loading ? 'table-container' : 'table-container w-90' }>
                     {loading ? <Loader /> :
                         currentTables.length === 0 ? (
                             <div className='group-container'>

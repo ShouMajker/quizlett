@@ -177,7 +177,7 @@ const EditCard = () => {
                     </form>
                 </div>
             </div>
-            <div className='table-container'>
+            <div className={loading ? 'table-container' : 'table-container w-90'}>
                 {loading ? <Loader /> :
                     allRecords.length === 0 ? (
                         <EmptyFeedback
